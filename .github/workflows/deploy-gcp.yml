@@ -9,11 +9,11 @@ jobs:
     name: Deploy to GCP
     runs-on: ubuntu-latest
     steps:
-      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
-        with:
-          version: '290.0.1'
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
-          service_account_email: ${{ secrets.GCP_SA_EMAIL }}
-          service_account_key: ${{ secrets.GCP_SA_KEY }}
-          export_default_credentials: true
+      - name: Setup Google Cloud SDK
+        run: |
+          apt-get install -qq -y gettext
+          echo ${{ secrets.GCLOUD_SERVICE_KEY }} > ${HOME}/gcloud-service-key.json
+          gcloud auth activate-service-account \
+            --key-file=${HOME}/gcloud-service-key.json
+          gcloud --quiet config set project ${GCP_PROJECT_ID}
       - run: gsutil rsync _site/ gs://j-volpe-com/_site
