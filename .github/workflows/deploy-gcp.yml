@@ -11,8 +11,8 @@ jobs:
     steps:
       - name: Setup Google Cloud SDK
         run: |
-          echo ${{ secrets.GCLOUD_SERVICE_KEY }} > ${HOME}/gcloud-service-key.json
+          echo ${{ secrets.GCLOUD_SERVICE_KEY }} > ./gcloud-service-key.json
           gcloud auth activate-service-account \
-            --key-file=${HOME}/gcloud-service-key.json
+            --key-file=./gcloud-service-key.json
           gcloud --quiet config set project ${GCP_PROJECT_ID}
       - run: gsutil rsync _site/ gs://j-volpe-com/_site
