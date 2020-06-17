@@ -11,8 +11,8 @@ jobs:
     steps:
       - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
-          version: '276.0.0'
+          version: '290.0.1'
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
           service_account_email: ${{ secrets.GCP_SA_EMAIL }}
           service_account_key: ${{ secrets.GCP_SA_KEY }}
       - run: gsutil rsync -r _site gs://j-volpe-com/${GITHUB_REF:11}/_site
-        
