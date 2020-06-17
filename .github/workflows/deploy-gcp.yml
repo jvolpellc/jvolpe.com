@@ -11,7 +11,6 @@ jobs:
     steps:
       - name: Setup Google Cloud SDK
         run: |
-          apt-get install -qq -y gettext
           echo ${{ secrets.GCLOUD_SERVICE_KEY }} > ${HOME}/gcloud-service-key.json
           gcloud auth activate-service-account \
             --key-file=${HOME}/gcloud-service-key.json
