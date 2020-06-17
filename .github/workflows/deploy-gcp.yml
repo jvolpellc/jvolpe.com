@@ -14,4 +14,4 @@ jobs:
         with:
           version: '276.0.0'
           service_account_key: ${{ secrets.GCP_SA_KEY }}
-      - run: gsutil rsync -r _site gs://j-volpe-com/${GITHUB_REF:11}/_site
+      - run: gsutil rsync -r * gs://j-volpe-com/${GITHUB_REF:11}/
