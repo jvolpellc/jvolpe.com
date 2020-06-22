@@ -1,16 +1,16 @@
 version: 2.1
 
 workflows:
-  name: Deploy to GCP
-  jobs:
-    - deploy_to_gcp:
-      filters:
-        branches:
-          only: /*-circleci/
   version: 2.1
+  deploy_static_site:
+    jobs:
+      - deploy_to_gcp:
+        filters:
+          branches:
+            only: /*-circleci/
 
 jobs:
-  build_to_gcp:
+  deploy_to_gcp:
     docker:
       - image: google/cloud-sdk
     steps:
