@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 
 workflows:
   name: Deploy to GCP
@@ -7,7 +7,7 @@ workflows:
       filters:
         branches:
           only: /*-circleci/
-  version: 2
+  version: 2.1
 
 jobs:
   build_to_gcp:
