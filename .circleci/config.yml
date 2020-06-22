@@ -15,12 +15,15 @@ jobs:
       - image: google/cloud-sdk
     working_directory: ~/repo
     steps:
+      - checkout
+      - attach_workspace:
+          at: .
       - run:
-        name: "Fill the bucket"
-        command: |
-          BRANCH_NAME=${CIRCLE_TAG:-$CIRCLE_BRANCH} # Set value to TAG or BRANCH if TAG is empty
-          echo ${GCLOUD_SERVICE_KEY} | base64 --decode > gcloud-service-key.json
-          gcloud auth activate-service-account --key-file=gcloud-service-key.json
-          gcloud config set project ${GOOGLE_PROJECT_ID}
-          gsutil rm -rf gs://${{ GCP_BUCKET_NAME }}/circleci/${BRANCH_NAME}
-          gsutil cp -r '*' gs://${{ GCP_BUCKET_NAME }}/circleci/${BRANCH_NAME}/
+          name: "Fill the bucket"
+          command: |
+            BRANCH_NAME=${CIRCLE_TAG:-$CIRCLE_BRANCH}
+            echo ${GCLOUD_SERVICE_KEY} | base64 --decode > gcloud-service-key.json
+            gcloud auth activate-service-account --key-file=gcloud-service-key.json
+            gcloud config set project ${GOOGLE_PROJECT_ID}
+            gsutil rm -rf gs://${{ GCP_BUCKET_NAME }}/circleci/${BRANCH_NAME}
+            gsutil cp -r '*' gs://${{ GCP_BUCKET_NAME }}/circleci/${BRANCH_NAME}/
