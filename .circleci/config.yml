@@ -25,5 +25,4 @@ jobs:
             echo ${GCLOUD_SERVICE_KEY} | base64 --decode > gcloud-service-key.json
             gcloud auth activate-service-account --key-file=gcloud-service-key.json
             gcloud config set project ${GOOGLE_PROJECT_ID}
-            gsutil rm -rf gs://${GCP_BUCKET_NAME}/circleci/${BRANCH_NAME}
             gsutil cp -r '*' gs://${GCP_BUCKET_NAME}/circleci/${BRANCH_NAME}/
