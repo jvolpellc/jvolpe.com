@@ -1,0 +1,19 @@
+version: 2
+
+workflows:
+  name: Deploy to GCP
+  jobs:
+    - deploy_to_gcp:
+      filters:
+        branches:
+          only: /*-circleci/
+  version: 2
+
+jobs:
+  build_to_gcp:
+    docker:
+      - image: google/cloud-sdk
+    steps:
+      - echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
+      - gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+      - gcloud config set project ${GOOGLE_PROJECT_ID}
